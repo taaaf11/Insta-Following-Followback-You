@@ -11,20 +11,21 @@ def get_data_from_zip(filename) -> tuple[list]:
     
     followers = parse_html_data(followers_data)
     followings = parse_html_data(following_data)
-    # print((followers, followings))
-    return (followers, followings)
+
+    return followers, followings
+
 
 def parse_html_data(html_string: str):
     data = []
     soup = Bs(html_string, 'html.parser')
     data_divs = soup.find_all('div', attrs={'class': 'pam _3-95 _2ph- _a6-g uiBoxWhite noborder'})
-    # return
+
     for data_div in data_divs:
         data.append(data_div.find('div', attrs={'class': '_a6-p'}).div.div.a.text)
     return data
 
 
-def give_info(data_followers_following) -> list:
+def get_info(data_followers_following) -> list:
     followers = data_followers_following[0]
     followings = data_followers_following[1]
     
