@@ -3,6 +3,8 @@ import flet as ft
 
 
 def main(page: ft.Page):
+    github_repo_link = 'https://github.com/taaaf11/Insta-Following-Followback-You'
+
     page.title = "Insta Followback Checker"
 
     page.theme = ft.Theme(color_scheme_seed='Brown')
@@ -15,6 +17,9 @@ def main(page: ft.Page):
         # resetting the layout alignment,
         # as it changes when user requests help_view
         page.vertical_alignment = ft.MainAxisAlignment.START
+        page.scroll = None
+        page.appbar.actions = []
+
         if selected_page == 0:
             home_view.visible = True
             help_view.visible = False
@@ -24,11 +29,21 @@ def main(page: ft.Page):
             help_view.visible = True
             about_view.visible = False
 
+            # add buttons to increase or decrease the size of help text
+            page.appbar.actions = [
+                ft.IconButton(icon=ft.icons.ADD_SHARP, on_click=lambda _: help_view.inc_size()),
+                ft.IconButton(icon=ft.icons.REMOVE_SHARP, on_click=lambda _: help_view.dec_size())
+            ]
+
+            page.scroll = 'auto'
+
             # Add on_click to the button, couldn't do better
             # Couldn't do in __init__ because the class is initializing
             # at that stage
             # Goes like this: HelpPage -> ft.Row(...) -> ft.TextButton -> event handler
-            help_view.controls[0].controls[1].on_click = lambda _: page.launch_url('https://accountscenter.instagram.com/info_and_permissions/dyi')
+            help_view.controls[0].controls[1].on_click = lambda _: page.launch_url('https://help.instagram.com/181231772500920')
+            # Goes like this: HelpPage -> ft.TextButton -> event handler
+            help_view.controls[-1].on_click = lambda _: page.launch_url(github_repo_link)
         elif selected_page == 2:
             home_view.visible = False
             help_view.visible = False
@@ -63,6 +78,7 @@ def main(page: ft.Page):
     home_view = InstFnotFYouApp()
     help_view = HelpPage(visible=False)
     about_view = AboutPage(author_name='Muhammad Altaaf', author_avatar_url='https://www.github.com/taaaf11.png?size=120px',
+                           source_code_link=github_repo_link,
                            visible=False)
     page.add(home_view, help_view, about_view)
 
