@@ -1,2 +1,1 @@
-from ui_components.instfnotfyou import InstaFnotFYou
 from ui_components.instfnotfyouapp import InstFnotFYouApp

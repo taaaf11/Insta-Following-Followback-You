@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup as Bs
+import flet as ft
 import zipfile
 
 
@@ -25,9 +26,10 @@ def parse_html_data(html_string: str):
     return data
 
 
-def get_info(data_followers_following) -> list:
-    followers = data_followers_following[0]
-    followings = data_followers_following[1]
+def get_info(filename) -> list:
+    followers, followings = get_data_from_zip(filename=filename)
+    # followers = data_followers_following[0]
+    # followings = data_followers_following[1]
     
     not_following_you = []
 
@@ -36,3 +38,10 @@ def get_info(data_followers_following) -> list:
             not_following_you.append(following)
     
     return not_following_you
+
+
+def get_info_flet_controls(filename):
+    not_following_you_controls = []
+    for not_following_you in get_info(filename):
+        not_following_you_controls.append(ft.Text(not_following_you))
+    return not_following_you_controls
