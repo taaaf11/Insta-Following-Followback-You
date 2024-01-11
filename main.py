@@ -3,14 +3,12 @@ import flet as ft
 
 
 def main(page: ft.Page):
-    page.title = "Insta people not following you back"
+    page.title = "Insta Followback Checker"
 
-    page.theme = ft.Theme(color_scheme_seed='#01666f')
+    page.theme = ft.Theme(color_scheme_seed='Brown')
 
-    # page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
     page.add(InstFnotFYouApp())
 
 ft.app(main)
-

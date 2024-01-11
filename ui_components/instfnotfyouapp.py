@@ -1,4 +1,4 @@
-from backend.fn import get_info_flet_controls
+from backend.fn import get_info_flet_text_controls
 import flet as ft
 
 
@@ -28,7 +28,7 @@ class InstFnotFYouApp(ft.Column):
         self.update()
     
     def show_usernames(self, e):
-        controls = get_info_flet_controls(self.file_path)
+        controls = get_info_flet_text_controls(self.file_path)
         self.controls.append(
             ft.Container(
                 ft.ListView([

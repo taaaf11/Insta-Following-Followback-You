@@ -3,7 +3,7 @@ import flet as ft
 import zipfile
 
 
-def get_data_from_zip(filename) -> tuple[list]:
+def get_data_from_zip(filename: str) -> tuple[list]:
     with zipfile.ZipFile(filename) as data:
         with data.open('connections/followers_and_following/followers_1.html') as followers_file:
             followers_data = followers_file.read()
@@ -26,10 +26,8 @@ def parse_html_data(html_string: str):
     return data
 
 
-def get_info(filename) -> list:
+def get_info(filename: str) -> list:
     followers, followings = get_data_from_zip(filename=filename)
-    # followers = data_followers_following[0]
-    # followings = data_followers_following[1]
     
     not_following_you = []
 
@@ -40,7 +38,7 @@ def get_info(filename) -> list:
     return not_following_you
 
 
-def get_info_flet_controls(filename):
+def get_info_flet_text_controls(filename: str) -> list[ft.Text]:
     not_following_you_controls = []
     for not_following_you in get_info(filename):
         not_following_you_controls.append(ft.Text(not_following_you))
