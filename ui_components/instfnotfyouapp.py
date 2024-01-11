@@ -6,8 +6,8 @@ class InstFnotFYouApp(ft.Column):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.file_picker = ft.FilePicker(on_result=self._get_file_name_from_dialog)
-        self.add_file_button = ft.TextButton(icon=ft.icons.FILE_OPEN, on_click=self.get_file_name)
-        self.submit_button = ft.TextButton(icon=ft.icons.CHECK_SHARP, on_click=self.show_usernames)
+        self.add_file_button = ft.IconButton(icon=ft.icons.FILE_OPEN, on_click=self.get_file_name)
+        self.submit_button = ft.IconButton(icon=ft.icons.CHECK_SHARP, on_click=self.show_usernames)
 
         self.file_path = None
         self.file_path_field = ft.TextField(hint_text='File Path', disabled=True)
@@ -34,7 +34,7 @@ class InstFnotFYouApp(ft.Column):
                 ft.ListView([
                     ft.DataTable(
                         columns=[ft.DataColumn(ft.Text('People not Following you back'))],
-                        rows=[ft.DataRow([ft.DataCell(i)]) for i in controls])
+                        rows=[ft.DataRow([ft.DataCell(control)]) for control in controls])
                     ],
                 height=300, width=400),
             border=ft.border.all(width=1, color=self.page.theme.color_scheme_seed)
