@@ -2,7 +2,7 @@ import flet as ft
 
 
 class AboutPage(ft.Column):
-    def __init__(self, author_name: str, author_avatar_url: str | None = None, source_code_link: str | None = None, version_info: str | None = None, *args, **kwargs):
+    def __init__(self, author_name: str, author_avatar_url: str | None = None, source_code_link: str | None = None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.controls = [
             ft.Text('Written by:', size=30)
