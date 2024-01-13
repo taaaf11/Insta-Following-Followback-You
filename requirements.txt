@@ -1,2 +1,2 @@
-beautifulsoup4
-flet
+beautifulsoup4==4.12.2
+flet==0.18.0
