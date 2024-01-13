@@ -35,6 +35,7 @@ def get_info(filename: str) -> list:
         if following not in followers:
             not_following_you.append(following)
     
+    # return sorted(not_following_you)
     return not_following_you
 
 
