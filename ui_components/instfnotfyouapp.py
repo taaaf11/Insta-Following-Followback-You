@@ -60,13 +60,12 @@ class InstFnotFYouApp(ft.Column):
         self.update()
     
     def show_usernames(self):
-        controls = get_info_flet_text_controls(self.file_path)
         list_view = ft.ListView([
             ft.DataTable(
-                columns=[ft.DataColumn(ft.Text('People not Following you back'))],
-                rows=[ft.DataRow([ft.DataCell(control)]) for control in controls
-            ])
-        ], height=self.page.height / 2, width=400)
+                columns=[ft.DataColumn(ft.Text('People not Following you back')), ft.DataColumn(ft.Text('Date Followed'))],
+                rows=[ft.DataRow([ft.DataCell(control[0]), ft.DataCell(control[1])]) for control in get_info_flet_text_controls(self.file_path)]
+            )
+        ], height=self.page.height / 2, width=self.page.width)
 
         self.controls.remove(self.prog_bar)
         self.controls.append(list_view)
