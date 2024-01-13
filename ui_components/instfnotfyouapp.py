@@ -1,4 +1,4 @@
-from backend.fn import get_info_flet_text_controls
+from backend import get_info_flet_text_controls
 import flet as ft
 import threading
 
@@ -62,7 +62,7 @@ class InstFnotFYouApp(ft.Column):
     def show_usernames(self):
         list_view = ft.ListView([
             ft.DataTable(
-                columns=[ft.DataColumn(ft.Text('People not Following you back')), ft.DataColumn(ft.Text('Date Followed'))],
+                columns=[ft.DataColumn(ft.Text('People')), ft.DataColumn(ft.Text('Follow Date'))],
                 rows=[ft.DataRow([ft.DataCell(control[0]), ft.DataCell(control[1])]) for control in get_info_flet_text_controls(self.file_path)]
             )
         ], height=self.page.height / 2, width=self.page.width)
@@ -77,7 +77,7 @@ class InstFnotFYouApp(ft.Column):
         # scrolling a small "quantity" to make the user aware
         # about the existence of other items beyond the shown items
         # basically, showing the scroll bar
-        list_view.scroll_to(delta=0.0000001)  # making it so small that it's negligible 🤡
+        list_view.scroll_to(delta=0.0000001)  # making it so small that it's negligible (fisics 🤡)
         self.update()
     
     def controls_adder(self, e):
