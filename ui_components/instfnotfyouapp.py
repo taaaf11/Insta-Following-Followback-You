@@ -75,6 +75,11 @@ class InstFnotFYouApp(ft.Column):
         )
 
         self.update()
+        # scrolling a small "quantity" to make the user aware
+        # about the existence of other items beyond the shown items
+        # basically, showing the scroll bar
+        list_view.scroll_to(delta=0.0000001)  # making it so small that it's negligible 🤡
+        self.update()
     
     def controls_adder(self, e):
         t1 = threading.Thread(target=self.show_progressring)

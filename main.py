@@ -3,7 +3,6 @@ import flet as ft
 
 
 GITHUB_PROFILE = 'https://www.github.com/taaaf11'
-GITHUB_REPO_LINK = 'https://github.com/taaaf11/Insta-Following-Followback-You'
 
 
 def main(page: ft.Page):
@@ -72,7 +71,7 @@ def main(page: ft.Page):
     home_view = InstFnotFYouApp()
     help_view = HelpPage(visible=False)
     about_view = AboutPage(author_name='Muhammad Altaaf', author_avatar_url=f'{GITHUB_PROFILE}.png?size=120px',
-                           source_code_link=GITHUB_REPO_LINK,
+                           source_code_link=f'{GITHUB_PROFILE}/Insta-Following-Followback-You',
                            visible=False)
     page.add(home_view, help_view, about_view)
 
