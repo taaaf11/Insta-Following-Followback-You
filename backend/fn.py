@@ -6,7 +6,7 @@ import zipfile
 
 
 # for both followers and followings
-FollowData = namedtuple('FollowingData', 'name date')
+FollowData = namedtuple('FollowData', 'name date')
 
 # *** all the function names starting with "opt" will be used in multi-threading ***
 

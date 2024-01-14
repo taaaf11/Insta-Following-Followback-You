@@ -24,7 +24,6 @@ class HelpPage(ft.Column):
         GITHUB_REPO_LINK = 'https://github.com/taaaf11/Insta-Following-Followback-You'
         self.controls = [
             SimpleText('1. View steps of downloading data for your profile:'),
-            # Make it centered
             LinkButton(icon=ft.icons.INSERT_LINK_ROUNDED, link_text='Instagram - Help Page - Request Data Download', link_addr=INSTAGRAM_DOWNLOAD_INFO_HELP_PAGE, alignment=ft.alignment.center),
             SimpleText('2. Don\'t fret, it is the link to official instagram page where you can download your data.'),
             SimpleText('3. Navigate through the process, select **Followers and Following** (as this is required by the app).'),
@@ -34,7 +33,6 @@ class HelpPage(ft.Column):
                        '\n'),
 
             SimpleText('P.S.: Don\'t worry about your data! We just work on the followers and followings list from the zip file you provide. If you are worried, you can have a look at the source code...'),
-            # Make it centered
             LinkButton(icon=ft.icons.INSERT_LINK_OUTLINED, link_text='Source code', link_addr=GITHUB_REPO_LINK, alignment=ft.alignment.center)
         ]
     

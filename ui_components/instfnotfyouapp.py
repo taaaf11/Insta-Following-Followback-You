@@ -1,4 +1,5 @@
 from backend import get_info, get_info_flet_text_controls
+from .searchbar import SearchBar
 import flet as ft
 import threading
 
@@ -21,6 +22,9 @@ class InstFnotFYouApp(ft.Column):
             self.file_added_confirm,
             self.submit_button
         ]
+
+        self.info_ctrls = None
+        self.list_view = None
         
         self.alignment = ft.MainAxisAlignment.START
         self.horizontal_alignment = ft.CrossAxisAlignment.CENTER
@@ -41,7 +45,8 @@ class InstFnotFYouApp(ft.Column):
     def show_progressring(self):
         prog_bar_count = 0
         while not isinstance(self.controls[-1], ft.ListView):
-            if prog_bar_count == 1: continue
+            if prog_bar_count == 1:
+                continue
             self.controls.append(
                 (prog_bar := ft.ProgressBar(width=self.page.width / 4))
             )
@@ -59,16 +64,28 @@ class InstFnotFYouApp(ft.Column):
         ]
         self.update()
     
+    def searcher(self, text):
+        self.list_view.controls[0].rows = [ft.DataRow([ft.DataCell(control[0]), ft.DataCell(control[1])]) for control in self.info_ctrls if text in control[0].value]
+        self.update()
+    
     def show_usernames(self):
-        list_view = ft.ListView([
+        self.info_ctrls = get_info_flet_text_controls(get_info(self.file_path))
+
+        search_bar = SearchBar(func=self.searcher,
+                                border_radius=10,
+                                width=self.page.width / 2)
+        
+        self.list_view = ft.ListView([
             ft.DataTable(
                 columns=[ft.DataColumn(ft.Text('People')), ft.DataColumn(ft.Text('Follow Date'))],
-                rows=[ft.DataRow([ft.DataCell(control[0]), ft.DataCell(control[1])]) for control in get_info_flet_text_controls(get_info(self.file_path))]
+                rows=[ft.DataRow([ft.DataCell(control[0]), ft.DataCell(control[1])])
+                       for control in self.info_ctrls]
             )
         ], height=self.page.height / 2, width=self.page.width)
 
         self.controls.remove(self.prog_bar)
-        self.controls.append(list_view)
+        self.controls.append(search_bar)
+        self.controls.append(self.list_view)
         self.controls.append(
             ft.FilledButton(text='Reset', on_click=lambda _:self._reset_controls())
         )
@@ -77,7 +94,7 @@ class InstFnotFYouApp(ft.Column):
         # scrolling a small "quantity" to make the user aware
         # about the existence of other items beyond the shown items
         # basically, showing the scroll bar
-        list_view.scroll_to(delta=0.0000001)  # making it so small that it's negligible (fizics 🤡)
+        self.list_view.scroll_to(delta=0.0000001)  # making it so small that it's negligible (fizics 🤡)
         self.update()
     
     def controls_adder(self, e):
