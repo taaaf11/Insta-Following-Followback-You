@@ -6,17 +6,22 @@ import zipfile
 
 
 # for both followers and followings
-FollowData = namedtuple('FollowData', 'name date')
+FollowData = namedtuple("FollowData", "name date")
 
 # *** all the function names starting with "opt" will be used in multi-threading ***
 
+
 def get_data_from_zip(filename: str) -> tuple[list]:
     with zipfile.ZipFile(filename) as data:
-        with data.open('connections/followers_and_following/followers_1.html') as followers_file:
+        with data.open(
+            "connections/followers_and_following/followers_1.html"
+        ) as followers_file:
             followers_data = followers_file.read()
-        with data.open('connections/followers_and_following/following.html') as following_file:
+        with data.open(
+            "connections/followers_and_following/following.html"
+        ) as following_file:
             following_data = following_file.read()
-    
+
     followers = parse_html_data(followers_data)
     followings = parse_html_data(following_data)
 
@@ -25,10 +30,10 @@ def get_data_from_zip(filename: str) -> tuple[list]:
 
 def do_mul_thread(datas: list, function, *args):  # todo: add multi-threading tasks here
     three_datas = [
-        datas[:len(datas) // 4],
+        datas[: len(datas) // 4],
         datas[len(datas) // 4 : 2 * len(datas) // 4],
         datas[2 * len(datas) // 4 : 3 * len(datas) // 4],
-        datas[3 * len(datas) // 4 : ]
+        datas[3 * len(datas) // 4 :],
     ]
 
     result_1 = [None]
@@ -49,13 +54,13 @@ def do_mul_thread(datas: list, function, *args):  # todo: add multi-threading ta
     parse_t3.join()
     parse_t4.start()
     parse_t4.join()
-    
+
     return result_1[0] + result_2[0] + result_3[0] + result_4[0]
 
 
 def parse_html_data(html_string: str):
-    soup = Bs(html_string, 'html.parser')
-    data_divs = soup.find_all('div', attrs={'class': '_a6-p'})
+    soup = Bs(html_string, "html.parser")
+    data_divs = soup.find_all("div", attrs={"class": "_a6-p"})
 
     return do_mul_thread(data_divs, opt_get_data_html)
 
@@ -63,7 +68,7 @@ def parse_html_data(html_string: str):
 def opt_get_data_html(datas_list: list, ret_val: list) -> list:
     data = []
     for data_div in datas_list:
-        name_and_date = data_div.div.find_all('div')
+        name_and_date = data_div.div.find_all("div")
         name = name_and_date[0].a.text
         time = name_and_date[1].text
         data.append(FollowData(name, time))
@@ -75,7 +80,11 @@ def opt_get_names(followers_list: list, ret_val: list):
 
 
 def opt_get_data(followings_list: list, ret_val: list, followers_list: list):
-    ret_val[0] = [following for following in followings_list if following.name not in followers_list]
+    ret_val[0] = [
+        following
+        for following in followings_list
+        if following.name not in followers_list
+    ]
 
 
 def opt_controls(list_controls: list, ret_val: list):
